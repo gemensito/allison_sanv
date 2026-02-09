@@ -1,3 +1,10 @@
+/* =========================
+   TIMING GLOBAL (AQUÍ CONTROLAS TODO)
+========================= */
+const FLOWER_RANDOM_DELAY = 4000; // máximo random flores
+const FLOWER_WIND_START = 6500;   // cuándo empieza el viento
+const PAGE_START_DELAY = 1200;    // espera tras load
+
 function createGrid() {
   const container = document.getElementById("grid-container");
   container.innerHTML = "";
@@ -835,35 +842,40 @@ function createGrid() {
     cell.innerHTML = (row + col) % 2 === 0 ? svg1 : svg2;
 
     const flower = cell.querySelector(".flower-svg");
+    if (flower) cells.push(flower);
+
     container.appendChild(cell);
-    cells.push(flower);
   }
 
-  // animación de entrada
+  /* ENTRADA FLORES (RANDOM CONTROLADO) */
   cells.forEach((flower) => {
-    const delay = Math.random() * 4000;
+    const delay = Math.random() * FLOWER_RANDOM_DELAY;
     setTimeout(() => {
       flower.classList.add("animate");
     }, delay);
   });
 
-  // viento global (sin contar uno por uno)
+  /* VIENTO GLOBAL */
   setTimeout(() => {
     cells.forEach((f) => f.classList.add("wind"));
-  }, 6500);
+  }, FLOWER_WIND_START);
 }
 
-/* ===== CONTROL DE CARGA ===== */
+/* =========================
+   CARGA
+========================= */
 window.addEventListener("load", () => {
   document.body.classList.remove("no-js");
 
   setTimeout(() => {
     createGrid();
     document.body.classList.remove("no-anim");
-  }, 300);
+  }, PAGE_START_DELAY);
 });
 
-/* ===== RESIZE OPTIMIZADO ===== */
+/* =========================
+   RESIZE
+========================= */
 let resizeTimer;
 window.addEventListener("resize", () => {
   clearTimeout(resizeTimer);

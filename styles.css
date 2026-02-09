@@ -1,19 +1,10 @@
 /* =========================
-   RESET + BLOQUEO INICIAL
+   RESET + BASE
 ========================= */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
-
-.no-anim * {
-  animation: none !important;
-  transition: none !important;
-}
-
-.no-js #grid-container {
-  visibility: hidden;
 }
 
 body {
@@ -22,6 +13,16 @@ body {
   width: 100vw;
   height: 100vh;
   position: relative;
+}
+
+/* Bloqueo inicial */
+.no-anim * {
+  animation: none !important;
+  transition: none !important;
+}
+
+.no-js #grid-container {
+  visibility: hidden;
 }
 
 /* =========================
@@ -45,7 +46,6 @@ body {
   height: auto;
   opacity: 0;
   transform: scale(0);
-  will-change: transform;
 }
 
 .flower-svg.animate {
@@ -57,7 +57,7 @@ body {
   animation: windSway 7s ease-in-out infinite;
 }
 
-/* Animaciones */
+/* Animaciones flores */
 @keyframes popUp {
   0% { opacity: 0; transform: scale(0); }
   50% { opacity: 1; }
@@ -102,7 +102,7 @@ body {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: calc(100vh / 2.925);
+  height: calc(100vw / 2.925);
   z-index: 2;
   pointer-events: none;
 }
@@ -117,7 +117,9 @@ body {
   display: block;
 }
 
-/* Animaciones internas del matorral */
+/* =========================
+   ANIMACIONES MATORRAL
+========================= */
 .tallo {
   clip-path: inset(100% 0% 0% 0%);
 }
@@ -128,6 +130,7 @@ body {
   transform-box: fill-box;
 }
 
+/* PRIMER GRUPO */
 .flores_izquierda .tallo_0,
 .flores_centro .tallo_0,
 .flores_derecha .tallo_0 {
@@ -140,6 +143,7 @@ body {
   animation: grow-petal 1s ease-out 2.2s forwards;
 }
 
+/* RESTO */
 .flores_izquierda .tallo_1,
 .flores_izquierda .tallo_2,
 .flores_izquierda .tallo_3,
@@ -170,44 +174,54 @@ body {
   animation: grow-petal 1s ease-out 5.5s forwards;
 }
 
+/* VIENTO MATORRAL */
 .flor {
   transform-origin: bottom center;
   transform-box: fill-box;
-  animation: windSway 7s ease-in-out 8s infinite;
+  animation: windSway 7s ease-in-out 6.5s infinite;
 }
 
+/* Keyframes */
 @keyframes grow-stem {
-  from { clip-path: inset(100% 0% 0% 0%); }
   to { clip-path: inset(0% 0% 0% 0%); }
 }
 
 @keyframes grow-petal {
-  0% { transform: scale(0); opacity: 0; }
-  50% { transform: scale(0.5); opacity: 0.7; }
-  100% { transform: scale(1); opacity: 1; }
+  to { transform: scale(1); opacity: 1; }
 }
+
 
 /* =========================
    RESPONSIVE
 ========================= */
 @media (min-width: 1400px) {
-  .flower-svg { width: clamp(35px, 4vw, 80px); }
+  .flower-svg {
+    width: clamp(35px, 4vw, 80px);
+  }
 }
 
 @media (max-width: 1200px) {
-  .flower-svg { width: clamp(40px, 6vw, 100px); }
+  .flower-svg {
+    width: clamp(40px, 6vw, 100px);
+  }
 }
 
 @media (max-width: 900px) {
-  .flower-svg { width: clamp(40px, 8vw, 110px); }
+  .flower-svg {
+    width: clamp(40px, 8vw, 110px);
+  }
 }
 
 @media (max-width: 600px) {
-  .flower-svg { width: clamp(45px, 9vw, 120px); }
+  .flower-svg {
+    width: clamp(45px, 9vw, 120px);
+  }
 }
 
 @media (max-width: 400px) {
-  .flower-svg { width: clamp(50px, 10vw, 130px); }
+  .flower-svg {
+    width: clamp(50px, 10vw, 130px);
+  }
 }
 
 /* Enterrar más en pantallas anchas */
