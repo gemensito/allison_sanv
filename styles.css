@@ -1,0 +1,236 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #fc9e9b;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+
+/* =========================
+   GRID DE FLORES (PÁGINA 1)
+========================= */
+#grid-container {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  z-index: 1;
+}
+
+.grid-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flower-svg {
+  width: clamp(20px, 4vw, 60px);
+  height: auto;
+  opacity: 0;
+  transform: scale(0);
+}
+
+.flower-svg.animate {
+  animation: popUp 1.2s ease-out forwards;
+}
+
+.flower-svg.wind {
+  opacity: 0.8;
+  animation: windSway 7s ease-in-out infinite;
+}
+
+/* Animaciones */
+@keyframes popUp {
+  0% { opacity: 0; transform: scale(0); }
+  50% { opacity: 1; }
+  100% { opacity: 0.8; transform: scale(1); }
+}
+
+@keyframes windSway {
+  0%,100% { transform: scale(1) rotate(0deg) translateX(0); }
+  25% { transform: scale(1) rotate(8deg) translateX(16px); }
+  75% { transform: scale(1) rotate(-8deg) translateX(-16px); }
+}
+
+/* =========================
+   CAJA CENTRAL
+========================= */
+.text-box {
+  position: fixed;
+  top: 45%; /* un poco más arriba */
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #f9ceae;
+  padding: clamp(20px, 4vw, 50px);
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  z-index: 1000;
+  max-width: 90%;
+  width: clamp(300px, 50vw, 600px);
+}
+
+.text-box h1,
+.text-box p {
+  color: #fe4567;
+  font-family: Arial;
+  text-align: center;
+}
+
+/* =========================
+   MATORRAL (PÁGINA 2)
+========================= */
+.matorral-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: calc(100vh / 2.925);
+  z-index: 2; /* encima de TODO */
+  pointer-events: none;
+}
+
+.matorral-container svg {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* =========================
+   ANIMACIONES DEL MATORRAL
+   (IGUAL QUE TU SEGUNDA PÁGINA)
+========================= */
+.tallo {
+  clip-path: inset(100% 0% 0% 0%);
+}
+
+.petalo {
+  transform: scale(0);
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+.flores_izquierda .tallo_0,
+.flores_centro .tallo_0,
+.flores_derecha .tallo_0 {
+  animation: grow-stem 2.5s ease-out 0.1s forwards;
+}
+
+.flores_izquierda .petalo_0,
+.flores_centro .petalo_0,
+.flores_derecha .petalo_0 {
+  animation: grow-petal 1s ease-out 2.2s forwards;
+}
+
+.flores_izquierda .tallo_1,
+.flores_izquierda .tallo_2,
+.flores_izquierda .tallo_3,
+.flores_izquierda .tallo_4,
+.flores_centro .tallo_1,
+.flores_centro .tallo_2,
+.flores_centro .tallo_3,
+.flores_centro .tallo_4,
+.flores_derecha .tallo_1,
+.flores_derecha .tallo_2,
+.flores_derecha .tallo_3,
+.flores_derecha .tallo_4 {
+  animation: grow-stem 2.5s ease-out 3.4s forwards;
+}
+
+.flores_izquierda .petalo_1,
+.flores_izquierda .petalo_2,
+.flores_izquierda .petalo_3,
+.flores_izquierda .petalo_4,
+.flores_centro .petalo_1,
+.flores_centro .petalo_2,
+.flores_centro .petalo_3,
+.flores_centro .petalo_4,
+.flores_derecha .petalo_1,
+.flores_derecha .petalo_2,
+.flores_derecha .petalo_3,
+.flores_derecha .petalo_4 {
+  animation: grow-petal 1s ease-out 5.5s forwards;
+}
+
+.flor {
+  transform-origin: bottom center;
+  transform-box: fill-box;
+  animation: windSway 7s ease-in-out 8s infinite;
+}
+
+/* Keyframes matorral */
+@keyframes grow-stem {
+  from { clip-path: inset(100% 0% 0% 0%); }
+  to { clip-path: inset(0% 0% 0% 0%); }
+}
+
+@keyframes grow-petal {
+  0% { transform: scale(0); opacity: 0; }
+  50% { transform: scale(0.5); opacity: 0.7; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Desktop grande */
+@media (min-width: 1400px) {
+  .flower-svg {
+    width: clamp(35px, 4vw, 80px);
+  }
+}
+
+/* Laptop */
+@media (max-width: 1200px) {
+  .flower-svg {
+    width: clamp(40px, 6vw, 100px);
+  }
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+  .flower-svg {
+    width: clamp(40px, 8vw, 110px);
+  }
+}
+
+/* Celular */
+@media (max-width: 600px) {
+  .flower-svg {
+    width: clamp(45px, 9vw, 120px);
+  }
+}
+
+/* Celular pequeño */
+@media (max-width: 400px) {
+  .flower-svg {
+    width: clamp(50px, 10vw, 130px);
+  }
+}
+
+/* Desktop grande */
+@media (min-width: 1400px) {
+  .matorral-container svg {
+    transform: translateX(-50%) translateY(12%);
+  }
+}
+
+/* Desktop muy ancho */
+@media (min-width: 1800px) {
+  .matorral-container svg {
+    transform: translateX(-50%) translateY(18%);
+  }
+}
+
+/* Ultra wide (opcional) */
+@media (min-width: 2200px) {
+  .matorral-container svg {
+    transform: translateX(-50%) translateY(25%);
+  }
+}
