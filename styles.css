@@ -15,7 +15,7 @@ body {
   position: relative;
 }
 
-/* Bloqueo inicial */
+/* Bloqueo global inicial */
 .no-anim * {
   animation: none !important;
   transition: none !important;
@@ -46,18 +46,21 @@ body {
   height: auto;
   opacity: 0;
   transform: scale(0);
+  will-change: transform;
 }
 
-.flower-svg.animate {
+/* Entrada flores */
+.start-anim .flower-svg.animate {
   animation: popUp 1.2s ease-out forwards;
 }
 
-.flower-svg.wind {
+/* Viento flores */
+.start-anim .flower-svg.wind {
   opacity: 0.8;
   animation: windSway 7s ease-in-out infinite;
 }
 
-/* Animaciones flores */
+/* Keyframes flores */
 @keyframes popUp {
   0% { opacity: 0; transform: scale(0); }
   50% { opacity: 1; }
@@ -77,7 +80,7 @@ body {
   position: fixed;
   top: 45%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%) scale(0.85);
   background: #f9ceae;
   padding: clamp(20px, 4vw, 50px);
   border-radius: 15px;
@@ -85,6 +88,13 @@ body {
   z-index: 1000;
   max-width: 90%;
   width: clamp(300px, 50vw, 600px);
+  opacity: 0;
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.text-box.show {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
 }
 
 .text-box h1,
@@ -95,7 +105,7 @@ body {
 }
 
 /* =========================
-   MATORRAL
+   MATORRAL (BASE)
 ========================= */
 .matorral-container {
   position: fixed;
@@ -115,10 +125,11 @@ body {
   width: 100%;
   height: auto;
   display: block;
+  will-change: transform;
 }
 
 /* =========================
-   ANIMACIONES MATORRAL
+   MATORRAL - ESTADO BASE
 ========================= */
 .tallo {
   clip-path: inset(100% 0% 0% 0%);
@@ -130,58 +141,66 @@ body {
   transform-box: fill-box;
 }
 
-/* PRIMER GRUPO */
-.flores_izquierda .tallo_0,
-.flores_centro .tallo_0,
-.flores_derecha .tallo_0 {
-  animation: grow-stem 2.5s ease-out 0.1s forwards;
-}
-
-.flores_izquierda .petalo_0,
-.flores_centro .petalo_0,
-.flores_derecha .petalo_0 {
-  animation: grow-petal 1s ease-out 2.2s forwards;
-}
-
-/* RESTO */
-.flores_izquierda .tallo_1,
-.flores_izquierda .tallo_2,
-.flores_izquierda .tallo_3,
-.flores_izquierda .tallo_4,
-.flores_centro .tallo_1,
-.flores_centro .tallo_2,
-.flores_centro .tallo_3,
-.flores_centro .tallo_4,
-.flores_derecha .tallo_1,
-.flores_derecha .tallo_2,
-.flores_derecha .tallo_3,
-.flores_derecha .tallo_4 {
-  animation: grow-stem 2.5s ease-out 3.4s forwards;
-}
-
-.flores_izquierda .petalo_1,
-.flores_izquierda .petalo_2,
-.flores_izquierda .petalo_3,
-.flores_izquierda .petalo_4,
-.flores_centro .petalo_1,
-.flores_centro .petalo_2,
-.flores_centro .petalo_3,
-.flores_centro .petalo_4,
-.flores_derecha .petalo_1,
-.flores_derecha .petalo_2,
-.flores_derecha .petalo_3,
-.flores_derecha .petalo_4 {
-  animation: grow-petal 1s ease-out 5.5s forwards;
-}
-
-/* VIENTO MATORRAL */
 .flor {
   transform-origin: bottom center;
   transform-box: fill-box;
+}
+
+/* =========================
+   MATORRAL - ENTRADA
+========================= */
+/* Primer grupo */
+.start-anim .flores_izquierda .tallo_0,
+.start-anim .flores_centro .tallo_0,
+.start-anim .flores_derecha .tallo_0 {
+  animation: grow-stem 2.5s ease-out 0.1s forwards;
+}
+
+.start-anim .flores_izquierda .petalo_0,
+.start-anim .flores_centro .petalo_0,
+.start-anim .flores_derecha .petalo_0 {
+  animation: grow-petal 1s ease-out 2.2s forwards;
+}
+
+/* Resto */
+.start-anim .flores_izquierda .tallo_1,
+.start-anim .flores_izquierda .tallo_2,
+.start-anim .flores_izquierda .tallo_3,
+.start-anim .flores_izquierda .tallo_4,
+.start-anim .flores_centro .tallo_1,
+.start-anim .flores_centro .tallo_2,
+.start-anim .flores_centro .tallo_3,
+.start-anim .flores_centro .tallo_4,
+.start-anim .flores_derecha .tallo_1,
+.start-anim .flores_derecha .tallo_2,
+.start-anim .flores_derecha .tallo_3,
+.start-anim .flores_derecha .tallo_4 {
+  animation: grow-stem 2.5s ease-out 3.4s forwards;
+}
+
+.start-anim .flores_izquierda .petalo_1,
+.start-anim .flores_izquierda .petalo_2,
+.start-anim .flores_izquierda .petalo_3,
+.start-anim .flores_izquierda .petalo_4,
+.start-anim .flores_centro .petalo_1,
+.start-anim .flores_centro .petalo_2,
+.start-anim .flores_centro .petalo_3,
+.start-anim .flores_centro .petalo_4,
+.start-anim .flores_derecha .petalo_1,
+.start-anim .flores_derecha .petalo_2,
+.start-anim .flores_derecha .petalo_3,
+.start-anim .flores_derecha .petalo_4 {
+  animation: grow-petal 1s ease-out 5.5s forwards;
+}
+
+/* =========================
+   MATORRAL - VIENTO
+========================= */
+.start-anim .flor {
   animation: windSway 7s ease-in-out 6.5s infinite;
 }
 
-/* Keyframes */
+/* Keyframes matorral */
 @keyframes grow-stem {
   to { clip-path: inset(0% 0% 0% 0%); }
 }
@@ -190,38 +209,64 @@ body {
   to { transform: scale(1); opacity: 1; }
 }
 
+/* =========================
+   OVERLAY + BOTÓN PLAY
+========================= */
+#start-overlay {
+  position: fixed;
+  inset: 0;
+  background: #fc9e9b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5000;
+  transition: opacity 0.8s ease;
+}
+
+#start-overlay.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#start-btn {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  background: #f9ceae;
+  color: #fe4567;
+  font-size: 3rem;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#start-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 20px 45px rgba(0,0,0,0.3);
+}
 
 /* =========================
    RESPONSIVE
 ========================= */
 @media (min-width: 1400px) {
-  .flower-svg {
-    width: clamp(35px, 4vw, 80px);
-  }
+  .flower-svg { width: clamp(35px, 4vw, 80px); }
 }
 
 @media (max-width: 1200px) {
-  .flower-svg {
-    width: clamp(40px, 6vw, 100px);
-  }
+  .flower-svg { width: clamp(40px, 6vw, 100px); }
 }
 
 @media (max-width: 900px) {
-  .flower-svg {
-    width: clamp(40px, 8vw, 110px);
-  }
+  .flower-svg { width: clamp(40px, 8vw, 110px); }
 }
 
 @media (max-width: 600px) {
-  .flower-svg {
-    width: clamp(45px, 9vw, 120px);
-  }
+  .flower-svg { width: clamp(45px, 9vw, 120px); }
 }
 
 @media (max-width: 400px) {
-  .flower-svg {
-    width: clamp(50px, 10vw, 130px);
-  }
+  .flower-svg { width: clamp(50px, 10vw, 130px); }
 }
 
 /* Enterrar más en pantallas anchas */
