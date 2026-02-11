@@ -955,3 +955,121 @@ startBtn.addEventListener("click", () => {
     textBox.classList.add("show");
   }, TEXT_DELAY);
 });
+
+/* =========================
+   SAN VALENTÍN LOGIC
+========================= */
+
+const overlayModal = document.getElementById('overlay');
+const textBoxPage  = document.querySelector('.text-box');
+const btnNo        = document.getElementById('btnNo');
+
+const noTexts = [
+  '¿Estás segura mamu? 🥺',
+  'Creo que te equivocaste',
+  'Creo que no leíste bien la pregunta',
+  'Buena broma, verdad? 🥺',
+  'Hubo un fallo, contesta nuevamente',
+  'Cualquiera se puede equivocar',
+  'When haces tus momos en html',
+  'Todos encendidos',
+  'Hola Allison 🐓',
+  'Porque pusiste que no 💔',
+  'Una tralalerita no diría eso 🦈',
+  'Si dices que no eres jochis'
+];
+
+const noImages = [
+  'https://media.tenor.com/f6fBzbbk1RcAAAAj/cat.gif',
+  'https://media.tenor.com/J2SMf2oW7XkAAAAj/cat-stare.gif',
+  'https://media.tenor.com/d93Y0YbjlW0AAAAj/cat-crying.gif',
+  'https://media1.tenor.com/m/MOvVJoSPvDcAAAAd/botdojk.gif',
+  'https://media.tenor.com/LoUqNiIdmJQAAAAj/sad.gif',
+  'https://media.tenor.com/YJ6_zxdFi7AAAAAj/the-creature-creature.gif',
+  'https://media1.tenor.com/m/jL5e3AdC7jIAAAAd/cat-kitten.gif',
+  'https://media1.tenor.com/m/4njUeq5al0MAAAAd/reaction-meme-stan-twitter.gif',
+  'https://media.tenor.com/-2rbVbnfW24AAAAi/crying-cat-sad-kitty.gif',
+  'https://media.tenor.com/XkHMf98ePsgAAAAi/scream-cry.gif',
+  'https://media.tenor.com/138qbhYTWh4AAAAi/sad-man-alone.gif',
+  'https://media1.tenor.com/m/Vyk4qGS9S_MAAAAC/sadboixx.gif'
+];
+
+function openModal(content){
+  overlayModal.innerHTML = content;
+  overlayModal.classList.add('active');
+  textBoxPage.style.filter = "blur(6px)";
+}
+
+function closeBlur(){
+  textBoxPage.style.filter = "none";
+}
+
+function askAgain(){
+  const text = noTexts[Math.floor(Math.random()*noTexts.length)];
+  const img  = noImages[Math.floor(Math.random()*noImages.length)];
+
+  openModal(`
+    <div class="modal">
+      <img class="simple-img" src="${img}">
+      <p>${text}</p>
+      <p><strong>¿Quieres ser mi San Valentín? 💖</strong></p>
+      <div class="buttons-container">
+        <button class="btn_si" onclick="confirmarAmor()">Sí</button>
+        <button class="btn_no" onclick="askAgain()">No</button>
+      </div>
+    </div>
+  `);
+}
+
+/* ===== CONFETTI ===== */
+
+const confettiContainer = document.getElementById("confetti");
+let confettiInterval;
+
+function startConfetti(){
+  if(confettiInterval) return;
+
+  confettiInterval = setInterval(()=>{
+    const el = document.createElement("div");
+    el.className = "confetti";
+
+    const colors = ["#ea264d","#ffd166","#06d6a0","#118ab2","#c77dff"];
+    el.style.background = colors[Math.floor(Math.random()*colors.length)];
+    el.style.left = Math.random()*100 + "vw";
+    el.style.animationDuration = (Math.random()*3+2)+"s";
+
+    confettiContainer.appendChild(el);
+    setTimeout(()=>el.remove(),5000);
+  },60);
+}
+
+/* ===== CLICK NO ===== */
+
+btnNo.addEventListener("click", askAgain);
+
+/* ===== CLICK SI ===== */
+
+function confirmarAmor(){
+
+  openModal(`
+    <div class="modal">
+      <div class="circle-wrapper">
+        <img class="center-gif" src="images/gato_feliz.gif">
+
+        <div class="orbit">
+          <div class="photo-container pc1"><img class="photo" src="images/image1.webp"></div>
+          <div class="photo-container pc2"><img class="photo" src="images/image2.webp"></div>
+          <div class="photo-container pc3"><img class="photo" src="images/image3.webp"></div>
+          <div class="photo-container pc4"><img class="photo" src="images/image4.webp"></div>
+          <div class="photo-container pc5"><img class="photo" src="images/image5.webp"></div>
+        </div>
+      </div>
+
+      <p class="p_si"><strong>Sabía que dirías que sí!</strong></p>
+      <p class="p_si">Te quiero mucho Allison ♥️</p>
+    </div>
+  `);
+
+  startConfetti();
+}
+

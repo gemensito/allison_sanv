@@ -10,6 +10,8 @@ body {
   width: 100vw;
   height: 100vh;
   position: relative;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
 }
 
 .no-anim * {
@@ -47,7 +49,7 @@ body {
   animation: popUp 1.2s ease-out forwards;
 }
 
-.start-anim .flower-svg.wind {
+.start-anim #grid-container .flower-svg.wind {
   opacity: 0.8;
   animation: windSway 7s ease-in-out infinite;
 }
@@ -63,7 +65,6 @@ body {
   25% { transform: scale(1) rotate(8deg) translateX(16px); }
   75% { transform: scale(1) rotate(-8deg) translateX(-16px); }
 }
-
 
 @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Oswald:wght@200..700&display=swap');
 
@@ -83,7 +84,6 @@ body {
   text-align: center;
   transition: opacity 0.8s ease, transform 0.8s ease;
 }
-
 
 .text-box.show {
   opacity: 1;
@@ -270,7 +270,7 @@ body {
 /* =========================
    MATORRAL - VIENTO
 ========================= */
-.start-anim .flor {
+.start-anim .matorral-container .flor {
   animation: windSway 7s ease-in-out 6.5s infinite;
 }
 
@@ -319,6 +319,178 @@ body {
   transform: scale(1.08);
   box-shadow: 0 20px 45px rgba(0,0,0,0.3);
 }
+
+/* =========================
+   MODAL + OVERLAY
+========================= */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.45);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 6000;
+  padding: 20px;
+  transform: translate3d(0, 0, 0) !important;
+  will-change: auto;
+}
+
+.overlay.active {
+  display: flex;
+}
+
+.overlay .modal {
+  position: relative;
+  isolation: isolate;
+  background: #f9ceae;
+  padding: clamp(20px,4vw,40px);
+  border-radius: 22px;
+  width: min(92vw, 640px);
+  text-align: center;
+  animation: pop .3s ease;
+  box-shadow: 0 12px 40px rgba(0,0,0,.25);
+  transform: scale(1) !important;
+  border: clamp(3px, 0.5vw, 8px) solid #d4a47e;
+}
+
+.modal p {
+  font-family: "Oswald", sans-serif;
+  font-size: clamp(0.8rem, 3vw, 1.5rem);
+  color: #6f5057;
+}
+
+.modal .p_si {
+  font-family: "Oswald", sans-serif;
+  font-size: clamp(0.8rem, 3vw, 1.5rem);
+  color: #6f5057;
+}
+
+.modal img.simple-img {
+  width: 180px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+}
+
+@keyframes pop {
+  from {opacity:0; transform:scale(.9);}
+  to {opacity:1; transform:scale(1);}
+}
+
+/* ================= ORBITA ================= */
+
+.circle-wrapper {
+  position: relative;
+  width: var(--size);
+  height: var(--size);
+  margin: 0 auto;
+
+  --size: clamp(200px, 65vmin, 560px);
+  --photo-size: calc(var(--size) * 0.28);
+  --gif-size: calc(var(--size) * 0.36);
+  --gap: calc(var(--size) * 0.05);
+  --orbit-radius: calc(
+    (var(--size)/2) - (var(--photo-size)/2) - var(--gap)
+  );
+}
+
+.center-gif {
+  position: absolute;
+  width: var(--gif-size);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+
+.orbit {
+  position: absolute;
+  inset: 0;
+  animation: spin 40s linear infinite;
+}
+
+.photo-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--photo-size);
+  height: var(--photo-size);
+  margin-left: calc(var(--photo-size)/-2);
+  margin-top: calc(var(--photo-size)/-2);
+}
+
+.photo {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #fff;
+  padding: 4px;
+  box-shadow: 0 6px 14px rgba(0,0,0,.2);
+  animation: counter-spin 40s linear infinite;
+}
+
+.pc1 { transform: rotate(0deg) translate(var(--orbit-radius)) rotate(0deg); }
+.pc2 { transform: rotate(72deg) translate(var(--orbit-radius)) rotate(-72deg); }
+.pc3 { transform: rotate(144deg) translate(var(--orbit-radius)) rotate(-144deg); }
+.pc4 { transform: rotate(216deg) translate(var(--orbit-radius)) rotate(-216deg); }
+.pc5 { transform: rotate(288deg) translate(var(--orbit-radius)) rotate(-288deg); }
+
+@keyframes spin {
+  from {transform:rotate(0deg);}
+  to {transform:rotate(360deg);}
+}
+
+@keyframes counter-spin {
+  from {transform:rotate(0deg);}
+  to {transform:rotate(-360deg);}
+}
+
+/* ================= CONFETTI ================= */
+
+.confetti-container{
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 7000;
+}
+
+.confetti{
+  position: absolute;
+  width: 10px;
+  height: 18px;
+  opacity: .85;
+  animation: fall linear forwards;
+}
+
+@keyframes fall{
+  from { transform: translateY(-10vh) rotate(0); }
+  to { transform: translateY(110vh) rotate(720deg); }
+}
+
+.start-anim .overlay,
+.start-anim .overlay * {
+  animation: none !important;
+}
+
+/* Pero permitir SOLO las animaciones que el modal SÍ necesita */
+.start-anim .overlay .orbit {
+  animation: spin 40s linear infinite !important;
+}
+
+.start-anim .overlay .photo {
+  animation: counter-spin 40s linear infinite !important;
+}
+
+.start-anim .overlay .modal {
+  animation: pop .3s ease !important;
+}
+
+.start-anim .overlay .confetti {
+  animation: fall linear forwards !important;
+}
+
+
 
 /* =========================
    RESPONSIVE
