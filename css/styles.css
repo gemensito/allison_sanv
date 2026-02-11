@@ -1,3 +1,7 @@
+/* =========================
+   RESET / BASE
+========================= */
+
 * {
   margin: 0;
   padding: 0;
@@ -5,7 +9,8 @@
   overscroll-behavior: none;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   width: 100%;
@@ -24,6 +29,10 @@ body {
   backface-visibility: hidden;
 }
 
+/* =========================
+   UTILIDADES / ESTADOS
+========================= */
+
 .no-anim * {
   animation: none !important;
   transition: none !important;
@@ -32,6 +41,16 @@ body {
 .no-js #grid-container {
   visibility: hidden;
 }
+
+/* =========================
+   TIPOGRAFÍAS
+========================= */
+
+@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Oswald:wght@200..700&display=swap");
+
+/* =========================
+   GRID DE FLORES
+========================= */
 
 #grid-container {
   position: absolute;
@@ -64,35 +83,27 @@ body {
   animation: windSway 7s ease-in-out infinite;
 }
 
-@keyframes popUp {
-  0% { opacity: 0; transform: scale(0); }
-  50% { opacity: 1; }
-  100% { opacity: 0.8; transform: scale(1); }
-}
-
-@keyframes windSway {
-  0%,100% { transform: scale(1) rotate(0deg) translateX(0); }
-  25% { transform: scale(1) rotate(8deg) translateX(16px); }
-  75% { transform: scale(1) rotate(-8deg) translateX(-16px); }
-}
-
-@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Oswald:wght@200..700&display=swap');
+/* =========================
+   TEXT BOX CENTRAL
+========================= */
 
 .text-box {
   position: fixed;
   top: 40%;
-  left: 49%;
+  left: 50%;
   transform: translate(-50%, -50%) scale(0.9);
   background: #f9ceae;
   padding: clamp(20px, 3vw, 40px);
   border-radius: 25px;
-  box-shadow: 0 12px 25px rgba(0,0,0,0.18);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.18);
   z-index: 1000;
   max-width: 90%;
   width: clamp(260px, 45vw, 500px);
   opacity: 0;
   text-align: center;
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
 }
 
 .text-box.show {
@@ -118,7 +129,9 @@ body {
   color: #6f5057;
   opacity: 0;
   transform: translateY(10px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
   transition-delay: 0.4s;
 }
 
@@ -127,16 +140,14 @@ body {
   transform: translateY(0);
 }
 
-@keyframes heartbeat {
-  0%,100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-}
-
 .name {
   animation: heartbeat 3s infinite;
 }
 
-/* Contenedor para alinear los botones (opcional, añádelo a tu HTML) */
+/* =========================
+   BOTONES SI / NO
+========================= */
+
 .buttons-container {
   display: flex;
   gap: 20px;
@@ -144,8 +155,8 @@ body {
   margin-top: 18px;
 }
 
-/* Estilo base para ambos botones */
-.btn_si, .btn_no {
+.btn_si,
+.btn_no {
   font-family: "Oswald", sans-serif;
   font-weight: 600;
   text-transform: uppercase;
@@ -155,12 +166,11 @@ body {
   border: none;
   font-size: 1.1rem;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Botón SÍ: Protagonista y romántico */
 .btn_si {
-  background-color: #ea264d; /* El mismo rojo de 'Allison' */
+  background-color: #ea264d;
   color: white;
 }
 
@@ -170,10 +180,9 @@ body {
   box-shadow: 0 6px 15px rgba(234, 38, 77, 0.4);
 }
 
-/* Botón NO: Secundario y suave */
 .btn_no {
-  background-color: #fce8d5; /* Un tono más claro que la caja #f9ceae */
-  color: #6f5057; /* El mismo color de la pregunta */
+  background-color: #fce8d5;
+  color: #6f5057;
   border: 1px solid rgba(111, 80, 87, 0.2);
 }
 
@@ -183,14 +192,15 @@ body {
   transform: translateY(-2px);
 }
 
-/* Efecto de clic para ambos */
-.btn_si:active, .btn_no:active {
+.btn_si:active,
+.btn_no:active {
   transform: translateY(0);
 }
 
 /* =========================
-   MATORRAL (BASE)
+   MATORRAL / FLORES SVG INFERIOR
 ========================= */
+
 .matorral-container {
   position: fixed;
   bottom: 0;
@@ -212,9 +222,6 @@ body {
   will-change: transform;
 }
 
-/* =========================
-   MATORRAL - ESTADO BASE
-========================= */
 .tallo {
   clip-path: inset(100% 0% 0% 0%);
 }
@@ -230,10 +237,6 @@ body {
   transform-box: fill-box;
 }
 
-/* =========================
-   MATORRAL - ENTRADA
-========================= */
-/* Primer grupo */
 .start-anim .flores_izquierda .tallo_0,
 .start-anim .flores_centro .tallo_0,
 .start-anim .flores_derecha .tallo_0 {
@@ -246,7 +249,6 @@ body {
   animation: grow-petal 1s ease-out 2.2s forwards;
 }
 
-/* Resto */
 .start-anim .flores_izquierda .tallo_1,
 .start-anim .flores_izquierda .tallo_2,
 .start-anim .flores_izquierda .tallo_3,
@@ -277,25 +279,14 @@ body {
   animation: grow-petal 1s ease-out 5.5s forwards;
 }
 
-/* =========================
-   MATORRAL - VIENTO
-========================= */
 .start-anim .matorral-container .flor {
   animation: windSway 7s ease-in-out 6.5s infinite;
 }
 
-/* Keyframes matorral */
-@keyframes grow-stem {
-  to { clip-path: inset(0% 0% 0% 0%); }
-}
-
-@keyframes grow-petal {
-  to { transform: scale(1); opacity: 1; }
-}
-
 /* =========================
-   OVERLAY + BOTÓN PLAY
+   OVERLAY INICIO + BOTÓN START
 ========================= */
+
 #start-overlay {
   position: fixed;
   inset: 0;
@@ -313,25 +304,30 @@ body {
 }
 
 #start-btn {
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
+  background: transparent;
   border: none;
+  padding: 0;
   cursor: pointer;
-  background: #f9ceae;
-  color: #fe4567;
-  font-size: 3rem;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.25);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: none;
+  transition:
+    transform 0.2s ease,
+    filter 0.2s ease;
+}
+
+#start-btn img {
+  width: clamp(100px, 30vw, 260px);
+  height: auto;
+  display: block;
+  pointer-events: none;
 }
 
 #start-btn:hover {
-  transform: scale(1.08);
-  box-shadow: 0 20px 45px rgba(0,0,0,0.3);
+  transform: scale(1.12);
+  filter: brightness(1.05);
 }
 
 /* =========================
-   MODAL + OVERLAY
+   OVERLAY MODAL
 ========================= */
 
 .overlay {
@@ -342,7 +338,7 @@ body {
   bottom: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,.75);
+  background: rgba(0, 0, 0, 0.75);
   display: none;
   align-items: center;
   justify-content: center;
@@ -360,22 +356,17 @@ body {
   position: relative;
   isolation: isolate;
   background: #f9ceae;
-  padding: clamp(20px,4vw,40px);
+  padding: clamp(20px, 4vw, 40px);
   border-radius: 22px;
   width: min(92vw, 640px);
   text-align: center;
-  animation: pop .3s ease;
-  box-shadow: 0 12px 40px rgba(0,0,0,.25);
+  animation: pop 0.3s ease;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
   transform: scale(1) !important;
   border: clamp(3px, 0.5vw, 8px) solid #d4a47e;
 }
 
-.modal p {
-  font-family: "Oswald", sans-serif;
-  font-size: clamp(0.8rem, 3vw, 1.5rem);
-  color: #6f5057;
-}
-
+.modal p,
 .modal .p_si {
   font-family: "Oswald", sans-serif;
   font-size: clamp(0.8rem, 3vw, 1.5rem);
@@ -388,12 +379,9 @@ body {
   margin-bottom: 10px;
 }
 
-@keyframes pop {
-  from {opacity:0; transform:scale(.9);}
-  to {opacity:1; transform:scale(1);}
-}
-
-/* ================= ORBITA ================= */
+/* =========================
+   CÍRCULO ORBITAL FOTOS
+========================= */
 
 .circle-wrapper {
   position: relative;
@@ -405,9 +393,7 @@ body {
   --photo-size: calc(var(--size) * 0.28);
   --gif-size: calc(var(--size) * 0.36);
   --gap: calc(var(--size) * 0.05);
-  --orbit-radius: calc(
-    (var(--size)/2) - (var(--photo-size)/2) - var(--gap)
-  );
+  --orbit-radius: calc((var(--size)/2) - (var(--photo-size)/2) - var(--gap));
 }
 
 .center-gif {
@@ -415,7 +401,7 @@ body {
   width: var(--gif-size);
   top: 50%;
   left: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
 }
 
 .orbit {
@@ -430,8 +416,8 @@ body {
   left: 50%;
   width: var(--photo-size);
   height: var(--photo-size);
-  margin-left: calc(var(--photo-size)/-2);
-  margin-top: calc(var(--photo-size)/-2);
+  margin-left: calc(var(--photo-size) / -2);
+  margin-top: calc(var(--photo-size) / -2);
 }
 
 .photo {
@@ -441,54 +427,146 @@ body {
   object-fit: cover;
   background: #fff;
   padding: 4px;
-  box-shadow: 0 6px 14px rgba(0,0,0,.2);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
   animation: counter-spin 40s linear infinite;
 }
 
-.pc1 { transform: rotate(0deg) translate(var(--orbit-radius)) rotate(0deg); }
-.pc2 { transform: rotate(72deg) translate(var(--orbit-radius)) rotate(-72deg); }
-.pc3 { transform: rotate(144deg) translate(var(--orbit-radius)) rotate(-144deg); }
-.pc4 { transform: rotate(216deg) translate(var(--orbit-radius)) rotate(-216deg); }
-.pc5 { transform: rotate(288deg) translate(var(--orbit-radius)) rotate(-288deg); }
-
-@keyframes spin {
-  from {transform:rotate(0deg);}
-  to {transform:rotate(360deg);}
+.pc1 {
+  transform: rotate(0deg) translate(var(--orbit-radius)) rotate(0deg);
+}
+.pc2 {
+  transform: rotate(72deg) translate(var(--orbit-radius)) rotate(-72deg);
+}
+.pc3 {
+  transform: rotate(144deg) translate(var(--orbit-radius)) rotate(-144deg);
+}
+.pc4 {
+  transform: rotate(216deg) translate(var(--orbit-radius)) rotate(-216deg);
+}
+.pc5 {
+  transform: rotate(288deg) translate(var(--orbit-radius)) rotate(-288deg);
 }
 
-@keyframes counter-spin {
-  from {transform:rotate(0deg);}
-  to {transform:rotate(-360deg);}
-}
+/* =========================
+   CONFETTI
+========================= */
 
-/* ================= CONFETTI ================= */
-
-.confetti-container{
+.confetti-container {
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 7000;
 }
 
-.confetti{
+.confetti {
   position: absolute;
   width: 10px;
   height: 18px;
-  opacity: .85;
+  opacity: 0.85;
   animation: fall linear forwards;
 }
 
-@keyframes fall{
-  from { transform: translateY(-10vh) rotate(0); }
-  to { transform: translateY(110vh) rotate(720deg); }
+/* =========================
+   KEYFRAMES
+========================= */
+
+@keyframes popUp {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
 }
+
+@keyframes windSway {
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg) translateX(0);
+  }
+  25% {
+    transform: scale(1) rotate(8deg) translateX(16px);
+  }
+  75% {
+    transform: scale(1) rotate(-8deg) translateX(-16px);
+  }
+}
+
+@keyframes grow-stem {
+  to {
+    clip-path: inset(0% 0% 0% 0%);
+  }
+}
+
+@keyframes grow-petal {
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes heartbeat {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes counter-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes fall {
+  from {
+    transform: translateY(-10vh) rotate(0);
+  }
+  to {
+    transform: translateY(110vh) rotate(720deg);
+  }
+}
+
+/* =========================
+   OVERRIDES DE ANIMACIÓN EN OVERLAY
+========================= */
 
 .start-anim .overlay,
 .start-anim .overlay * {
   animation: none !important;
 }
 
-/* Pero permitir SOLO las animaciones que el modal SÍ necesita */
 .start-anim .overlay .orbit {
   animation: spin 40s linear infinite !important;
 }
@@ -498,39 +576,47 @@ body {
 }
 
 .start-anim .overlay .modal {
-  animation: pop .3s ease !important;
+  animation: pop 0.3s ease !important;
 }
 
 .start-anim .overlay .confetti {
   animation: fall linear forwards !important;
 }
 
-
-
 /* =========================
-   RESPONSIVE
+   MEDIA QUERIES
 ========================= */
+
 @media (min-width: 1400px) {
-  .flower-svg { width: clamp(35px, 4vw, 80px); }
+  .flower-svg {
+    width: clamp(35px, 4vw, 80px);
+  }
 }
 
 @media (max-width: 1200px) {
-  .flower-svg { width: clamp(40px, 6vw, 100px); }
+  .flower-svg {
+    width: clamp(40px, 6vw, 100px);
+  }
 }
 
 @media (max-width: 900px) {
-  .flower-svg { width: clamp(40px, 8vw, 110px); }
+  .flower-svg {
+    width: clamp(40px, 8vw, 110px);
+  }
 }
 
 @media (max-width: 600px) {
-  .flower-svg { width: clamp(45px, 9vw, 120px); }
+  .flower-svg {
+    width: clamp(45px, 9vw, 120px);
+  }
 }
 
 @media (max-width: 400px) {
-  .flower-svg { width: clamp(50px, 10vw, 130px); }
+  .flower-svg {
+    width: clamp(50px, 10vw, 130px);
+  }
 }
 
-/* Enterrar más en pantallas anchas */
 @media (min-width: 1400px) {
   .matorral-container svg {
     transform: translateX(-50%) translateY(12%);
