@@ -4,7 +4,6 @@
 
 const FLOWER_RANDOM_DELAY = 4000;
 const FLOWER_WIND_START = 6500;
-const MUSIC_DELAY = 3000;
 const ANIM_DELAY = 3000;
 const TEXT_DELAY = 10000;
 
@@ -864,14 +863,15 @@ const textBox = document.querySelector(".text-box");
 textBox.classList.remove("show");
 
 startBtn.addEventListener("click", () => {
+
   overlay.classList.add("fade-out");
 
-  // 🎵 Fade-in música
-  setTimeout(() => {
+  // 🎵 Música — reproducir inmediato (mobile friendly)
+  if (music) {
     music.volume = 0;
     music.play().catch(() => {});
 
-    let volume = 0.01;
+    let volume = 0.00;
     const targetVolume = 0.25;
     const fadeSpeed = 0.005;
 
@@ -883,20 +883,21 @@ startBtn.addEventListener("click", () => {
         music.volume = targetVolume;
         clearInterval(fadeIn);
       }
-    }, 100);
-  }, MUSIC_DELAY);
+    }, 1000);
+  }
 
-  // 🌸 Activar animaciones
+  // 🌸 Animaciones
   setTimeout(() => {
     document.body.classList.remove("no-anim");
     document.body.classList.add("start-anim");
     startFlowers();
   }, ANIM_DELAY);
 
-  // 💬 Mostrar texto
+  // 💬 Texto
   setTimeout(() => {
     textBox.classList.add("show");
   }, TEXT_DELAY);
+
 });
 
 /* =========================
@@ -940,7 +941,7 @@ const noImages = [
 function openModal(content) {
   overlayModal.innerHTML = content;
   overlayModal.classList.add("active");
-  textBoxPage.style.filter = "blur(6px)";
+  textBoxPage.classList.add("hidden");
 }
 
 function closeBlur() {
@@ -1009,8 +1010,11 @@ function confirmarAmor() {
         </div>
       </div>
 
-      <p class="p_si"><strong>Sabía que dirías que sí!</strong></p>
-      <p class="p_si">Te quiero mucho Allison ♥️</p>
+      <div class="modal-text">
+        <p class="p_si"><strong>Sabía que dirías que sí!</strong></p>
+        <p class="p_si">Te quiero mucho Allison ♥️</p>
+      </div>
+
     </div>
   `);
 

@@ -89,7 +89,7 @@ body {
 
 .text-box {
   position: fixed;
-  top: 40%;
+  top: 40%; /* Tu posición original */
   left: 50%;
   transform: translate(-50%, -50%) scale(0.9);
   background: #f9ceae;
@@ -101,9 +101,7 @@ body {
   width: clamp(260px, 45vw, 500px);
   opacity: 0;
   text-align: center;
-  transition:
-    opacity 0.8s ease,
-    transform 0.8s ease;
+  transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
 .text-box.show {
@@ -144,6 +142,11 @@ body {
   animation: heartbeat 3s infinite;
 }
 
+.text-box.hidden {
+  display: none;
+}
+
+
 /* =========================
    BOTONES SI / NO
 ========================= */
@@ -160,13 +163,17 @@ body {
   font-family: "Oswald", sans-serif;
   font-weight: 600;
   text-transform: uppercase;
-  padding: 10px 30px;
   border-radius: 12px;
   cursor: pointer;
   border: none;
-  font-size: 1.1rem;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  font-size: clamp(1rem, 4.5vh, 1.3rem);
+  padding: clamp(6px, 2.5vh, 12px) clamp(15px, 5vw, 40px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
 }
 
 .btn_si {
@@ -363,7 +370,7 @@ body {
   animation: pop 0.3s ease;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
   transform: scale(1) !important;
-  border: clamp(3px, 0.5vw, 8px) solid #d4a47e;
+  border: clamp(3px, 0.5vw, 8px) solid #bb8a62;
 }
 
 .modal p,
@@ -371,6 +378,7 @@ body {
   font-family: "Oswald", sans-serif;
   font-size: clamp(0.8rem, 3vw, 1.5rem);
   color: #6f5057;
+  text-align: center;
 }
 
 .modal img.simple-img {
@@ -425,9 +433,11 @@ body {
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
-  background: #fff;
-  padding: 4px;
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+  background: #bb8a62;
+  padding: clamp(2px, 0.4vw, 6px);
+  box-shadow: 0 clamp(3px, 0.8vw, 8px)
+            clamp(8px, 2vw, 18px)
+            rgba(0,0,0,0.2);
   animation: counter-spin 40s linear infinite;
 }
 
@@ -632,5 +642,185 @@ body {
 @media (min-width: 2200px) {
   .matorral-container svg {
     transform: translateX(-50%) translateY(25%);
+  }
+}
+
+@media (max-height: 500px) {
+  .matorral-container svg {
+    transform: translateX(-50%) translateY(22%);
+  }
+}
+
+@media (max-height: 350px) {
+  .matorral-container svg {
+    transform: translateX(-50%) translateY(30%);
+  }
+}
+
+@media (max-height: 260px) {
+  .matorral-container svg {
+    transform: translateX(-50%) translateY(38%);
+  }
+}
+
+@media (max-height: 420px) {
+  .overlay .modal {
+    width: min(70vw, 480px);   
+    max-height: 88vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    overflow: hidden;
+  }
+
+  .circle-wrapper {
+    flex: 0 0 68%;
+    --size: clamp(150px, 55vmin, 260px);
+  }
+
+  .modal-text {
+    flex: 0 0 32%;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    text-align: left;
+  }
+
+  .modal p,
+  .modal .p_si {
+    font-size: clamp(0.75rem, 2vw, 0.95rem);
+    line-height: 1.15;
+    margin: 0;
+  }
+}
+
+@media (max-height: 300px) {
+  .overlay .modal {
+    width: min(62vw, 320px);
+  }
+
+  .circle-wrapper {
+    --size: clamp(140px, 50vmin, 220px);
+  }
+
+  .modal-text {
+    gap: 4px;
+  }
+}
+
+@media (max-width: 320px) and (max-height: 320px) {
+  .modal-text {
+    display: none;
+  }
+
+  .modal .p_si,
+  .modal p {
+    display: none;
+  }
+
+  .overlay .modal {
+    width: min(90vw, 260px);
+    padding: 12px;
+  }
+
+  .circle-wrapper {
+    --size: clamp(140px, 70vmin, 220px);
+  }
+}
+
+@media (max-height: 420px) {
+  .overlay .modal {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr; 
+    grid-template-rows: auto auto auto; 
+    align-items: center;
+    gap: 8px 20px;
+
+    width: min(90vw, 600px);
+    max-height: 90vh;
+    padding: 15px;
+  }
+
+  .modal img.simple-img {
+    grid-column: 1;
+    grid-row: 1 / span 2; 
+    width: clamp(80px, 35vh, 140px);
+    justify-self: center;
+    margin: 0;
+  }
+
+  .modal p:not(:has(strong)) {
+    grid-column: 1;
+    grid-row: 3;
+    font-size: 0.85rem;
+    text-align: center;
+    margin: 0;
+  }
+
+  .modal p:has(strong) {
+    grid-column: 2;
+    grid-row: 1;
+    margin: 0;
+    text-align: center;
+  }
+
+  .buttons-container {
+    grid-column: 2;
+    grid-row: 2 / span 2; 
+    
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    align-self: start;
+  }
+
+  .buttons-container button {
+    width: 100%;
+    padding: 10px;
+    margin: 0;
+  }
+}
+
+@media (max-height: 300px) {
+  .overlay .modal {
+    width: min(70vw, 380px);
+    gap: 8px;
+  }
+
+  .modal img.simple-img {
+    width: clamp(80px, 20vh, 120px);
+  }
+
+  .modal p {
+    font-size: clamp(0.7rem, 2vw, 0.9rem);
+  }
+
+  .buttons-container {
+    gap: 6px;
+  }
+}
+
+@media (max-height: 420px) {
+  .text-box {
+    top: 50%;
+    padding: 12px 25px;
+    max-height: 95vh;
+    overflow: hidden;
+    width: auto;
+    min-width: 300px;
+  }
+
+  .text-box h2, .text-box .title {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+  }
+
+  .text-box .buttons-container {
+    flex-direction: row;
+    gap: 10px;
+    margin-top: 10px;
   }
 }
