@@ -4,21 +4,28 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Hola Allison</title>
+  <link rel="stylesheet" href="css/styles.css" />
 
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Emilys+Candy&display=swap" rel="stylesheet">
 </head>
 
 <body class="no-anim no-js">
-  <!-- Grid principal de flores -->
+
   <div id="grid-container"></div>
 
-  <!-- Caja central -->
   <div class="text-box">
-    <h1>Hola nigga</h1>
-    <p>Hola nigga</p>
+    <h1 class="name">Allison</h1>
+    <p class="question">¿Quieres ser mi San Valentín?</p>
+
+    <div class="buttons-container">
+      <button class="btn_si" onclick="confirmarAmor()">Sí</button>
+      <button id="btnNo" class="btn_no">No</button>
+    </div>
   </div>
 
-  <!-- Matorral SVG -->
+
   <div class="matorral-container">
 <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 1170 400" preserveAspectRatio="xMidYMax meet">
   <g class="matorral matorral">
@@ -421,11 +428,9 @@
 
   <!-- AUDIO (oculto) -->
   <audio id="bg-music" preload="auto">
-    <source src="musica.mp3" type="audio/mpeg">
+    <source src="audio/Dear Theodosia.mp3" type="audio/mpeg">
   </audio>
 
-
-
-  <script src="script.js"></script>
+  <script src="js/script.js"></script>
 </body>
 </html>

@@ -7,7 +7,7 @@ const FLOWER_RANDOM_DELAY = 4000;
 const FLOWER_WIND_START   = 6500;
 
 // inicio general
-const MUSIC_DELAY = 2000;
+const MUSIC_DELAY = 3000;
 const ANIM_DELAY  = 3000;
 const TEXT_DELAY  = 10000;
 
@@ -925,8 +925,22 @@ startBtn.addEventListener("click", () => {
 
   // 🎵 Música
   setTimeout(() => {
-    music.volume = 0.6;
+    music.volume = 0;
     music.play().catch(() => {});
+
+    let volume = 0.010;
+    const targetVolume = 0.25;
+    const fadeSpeed = 0.005;
+
+    const fadeIn = setInterval(() => {
+      if (volume < targetVolume) {
+        volume += fadeSpeed;
+        music.volume = volume;
+      } else {
+        music.volume = targetVolume;
+        clearInterval(fadeIn);
+      }
+    }, 100);
   }, MUSIC_DELAY);
 
   // 🌸 Animaciones

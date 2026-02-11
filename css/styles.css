@@ -1,6 +1,3 @@
-/* =========================
-   RESET + BASE
-========================= */
 * {
   margin: 0;
   padding: 0;
@@ -15,7 +12,6 @@ body {
   position: relative;
 }
 
-/* Bloqueo global inicial */
 .no-anim * {
   animation: none !important;
   transition: none !important;
@@ -25,9 +21,6 @@ body {
   visibility: hidden;
 }
 
-/* =========================
-   GRID DE FLORES
-========================= */
 #grid-container {
   position: absolute;
   inset: 0;
@@ -47,20 +40,18 @@ body {
   opacity: 0;
   transform: scale(0);
   will-change: transform;
+  overflow: visible;
 }
 
-/* Entrada flores */
 .start-anim .flower-svg.animate {
   animation: popUp 1.2s ease-out forwards;
 }
 
-/* Viento flores */
 .start-anim .flower-svg.wind {
   opacity: 0.8;
   animation: windSway 7s ease-in-out infinite;
 }
 
-/* Keyframes flores */
 @keyframes popUp {
   0% { opacity: 0; transform: scale(0); }
   50% { opacity: 1; }
@@ -73,35 +64,118 @@ body {
   75% { transform: scale(1) rotate(-8deg) translateX(-16px); }
 }
 
-/* =========================
-   CAJA CENTRAL
-========================= */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Oswald:wght@200..700&display=swap');
+
 .text-box {
   position: fixed;
-  top: 45%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0.85);
+  top: 40%;
+  left: 49%;
+  transform: translate(-50%, -50%) scale(0.9);
   background: #f9ceae;
-  padding: clamp(20px, 4vw, 50px);
-  border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  padding: clamp(20px, 3vw, 40px);
+  border-radius: 25px;
+  box-shadow: 0 12px 25px rgba(0,0,0,0.18);
   z-index: 1000;
   max-width: 90%;
-  width: clamp(300px, 50vw, 600px);
+  width: clamp(260px, 45vw, 500px);
   opacity: 0;
+  text-align: center;
   transition: opacity 0.8s ease, transform 0.8s ease;
 }
+
 
 .text-box.show {
   opacity: 1;
   transform: translate(-50%, -50%) scale(1);
 }
 
-.text-box h1,
-.text-box p {
-  color: #fe4567;
-  font-family: Arial;
-  text-align: center;
+.text-box .name {
+  font-family: "DM Serif Display", serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: clamp(3.5rem, 7vw, 4.5rem);
+  color: #ea264d;
+  margin-bottom: 8px;
+}
+
+.text-box .question {
+  font-family: "Oswald", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  font-size: clamp(1.3rem, 2.8vw, 1.6rem);
+  color: #6f5057;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  transition-delay: 0.4s;
+}
+
+.text-box.show .question {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes heartbeat {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.name {
+  animation: heartbeat 3s infinite;
+}
+
+/* Contenedor para alinear los botones (opcional, añádelo a tu HTML) */
+.buttons-container {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 18px;
+}
+
+/* Estilo base para ambos botones */
+.btn_si, .btn_no {
+  font-family: "Oswald", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 10px 30px;
+  border-radius: 12px;
+  cursor: pointer;
+  border: none;
+  font-size: 1.1rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Botón SÍ: Protagonista y romántico */
+.btn_si {
+  background-color: #ea264d; /* El mismo rojo de 'Allison' */
+  color: white;
+}
+
+.btn_si:hover {
+  background-color: #ff3d66;
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 6px 15px rgba(234, 38, 77, 0.4);
+}
+
+/* Botón NO: Secundario y suave */
+.btn_no {
+  background-color: #fce8d5; /* Un tono más claro que la caja #f9ceae */
+  color: #6f5057; /* El mismo color de la pregunta */
+  border: 1px solid rgba(111, 80, 87, 0.2);
+}
+
+.btn_no:hover {
+  background-color: #f3d4bc;
+  color: #4a3439;
+  transform: translateY(-2px);
+}
+
+/* Efecto de clic para ambos */
+.btn_si:active, .btn_no:active {
+  transform: translateY(0);
 }
 
 /* =========================
