@@ -9,9 +9,22 @@ body {
   overflow: hidden;
   width: 100vw;
   height: 100vh;
-  position: relative;
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
+  position: fixed;
+  overscroll-behavior: none;
+  touch-action: none;
+}
+
+html {
+  overflow: hidden;
+  height: 100%;
+  touch-action: none;
+  overscroll-behavior: none;
+}
+
+* {
+  overscroll-behavior: none;
 }
 
 .no-anim * {
