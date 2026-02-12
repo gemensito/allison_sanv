@@ -871,8 +871,8 @@ startBtn.addEventListener("click", () => {
     music.volume = 0;
     music.play().catch(() => {});
 
-    let volume = 0.0;
-    const targetVolume = 0.3;
+    let volume = 0.002;
+    const targetVolume = 0.35;
     const fadeSpeed = 0.002;
 
     const fadeIn = setInterval(() => {
