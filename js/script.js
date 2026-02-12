@@ -4,6 +4,7 @@
 
 const FLOWER_RANDOM_DELAY = 4000;
 const FLOWER_WIND_START = 6500;
+const MUSIC_DELAY = 2000;
 const ANIM_DELAY = 3000;
 const TEXT_DELAY = 10000;
 
@@ -862,28 +863,38 @@ const textBox = document.querySelector(".text-box");
 
 textBox.classList.remove("show");
 
-startBtn.addEventListener("click", () => {
+// 🎵 Música
+function startAudio(e) {
+  e.preventDefault(); 
 
   overlay.classList.add("fade-out");
 
-  // 🎵 Música — reproducir inmediato (mobile friendly)
   if (music) {
     music.volume = 0;
-    music.play().catch(() => {});
 
-    let volume = 0.00;
-    const targetVolume = 0.25;
-    const fadeSpeed = 0.005;
+    const playPromise = music.play();
 
-    const fadeIn = setInterval(() => {
-      if (volume < targetVolume) {
-        volume += fadeSpeed;
-        music.volume = volume;
-      } else {
-        music.volume = targetVolume;
-        clearInterval(fadeIn);
-      }
-    }, 1000);
+    if (playPromise !== undefined) {
+      playPromise
+        .then(() => {
+
+          let volume = 0.05;
+          const targetVolume = 0.25;
+          const fadeSpeed = 0.005;
+          const fadeInterval = 20;
+
+          const fadeIn = setInterval(() => {
+            if (volume < targetVolume) {
+              volume += fadeSpeed;
+              music.volume = volume;
+            } else {
+              music.volume = targetVolume;
+              clearInterval(fadeIn);
+            }
+          }, fadeInterval);
+        })
+        .catch(err => console.log("No se pudo reproducir el audio:", err));
+    }
   }
 
   // 🌸 Animaciones
@@ -897,8 +908,11 @@ startBtn.addEventListener("click", () => {
   setTimeout(() => {
     textBox.classList.add("show");
   }, TEXT_DELAY);
+}
 
-});
+startBtn.addEventListener("click", startAudio, { once: true });
+startBtn.addEventListener("touchstart", startAudio, { once: true });
+
 
 /* =========================
    MODAL — RESPUESTA "NO"
