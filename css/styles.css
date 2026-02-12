@@ -1,4 +1,10 @@
 /* =========================
+   TIPOGRAFÍAS
+========================= */
+
+@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Oswald:wght@200..700&display=swap");
+
+/* =========================
    RESET / BASE
 ========================= */
 
@@ -41,12 +47,6 @@ body {
 .no-js #grid-container {
   visibility: hidden;
 }
-
-/* =========================
-   TIPOGRAFÍAS
-========================= */
-
-@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Oswald:wght@200..700&display=swap");
 
 /* =========================
    GRID DE FLORES
