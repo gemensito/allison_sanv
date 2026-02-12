@@ -866,14 +866,14 @@ textBox.classList.remove("show");
 startBtn.addEventListener("click", () => {
   overlay.classList.add("fade-out");
 
-  // 🎵 Música — reproducir inmediato (mobile friendly)
+  // 🎵 Música
   if (music) {
     music.volume = 0;
     music.play().catch(() => {});
 
-    let volume = 0.002;
+    let volume = 0.005;
     const targetVolume = 0.35;
-    const fadeSpeed = 0.002;
+    const fadeSpeed = 0.005;
 
     const fadeIn = setInterval(() => {
       if (volume < targetVolume) {
@@ -883,7 +883,7 @@ startBtn.addEventListener("click", () => {
         music.volume = targetVolume;
         clearInterval(fadeIn);
       }
-    }, MUSIC_DELAY); // vuelve a usar la variable que tenías antes
+    }, MUSIC_DELAY);
   }
 
   // 🌸 Animación
