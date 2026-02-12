@@ -863,12 +863,16 @@ const textBox = document.querySelector(".text-box");
 
 textBox.classList.remove("show");
 
+let hasStarted = false;
+
 // 🎵 Música
 function startAudio(e) {
-  e.preventDefault();
-  e.stopPropagation(); // Evita propagación del evento
+  if (hasStarted) return;
+  hasStarted = true;
   
-  // Resto del código igual...
+  e.preventDefault();
+  e.stopPropagation();
+
   overlay.classList.add("fade-out");
 
   if (music) {
@@ -911,8 +915,10 @@ function startAudio(e) {
   }, TEXT_DELAY);
 }
 
-startBtn.addEventListener("click", handleStart);
-startBtn.addEventListener("touchend", handleStart);
+// Eventos - usar click para ambos dispositivos
+startBtn.addEventListener("click", startAudio);
+// Para mejor compatibilidad en móviles, también escuchar touchstart
+startBtn.addEventListener("touchstart", startAudio);
 
 
 /* =========================
