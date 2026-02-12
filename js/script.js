@@ -876,30 +876,36 @@ function startAudio(e) {
   overlay.classList.add("fade-out");
 
   if (music) {
+    // Resetear y preparar el audio
+    music.pause();
+    music.currentTime = 0;
     music.volume = 0;
+    
+    // Reproducir inmediatamente (crítico para móviles)
+    music.play().then(() => {
+      console.log("✅ Audio iniciado");
+      
+      // Fade in del volumen
+      let volume = 0.05;
+      const targetVolume = 0.25;
+      const fadeSpeed = 0.005;
+      const fadeInterval = 20;
 
-    const playPromise = music.play();
-
-    if (playPromise !== undefined) {
-      playPromise
-        .then(() => {
-          let volume = 0.05;
-          const targetVolume = 0.25;
-          const fadeSpeed = 0.005;
-          const fadeInterval = 20;
-
-          const fadeIn = setInterval(() => {
-            if (volume < targetVolume) {
-              volume += fadeSpeed;
-              music.volume = volume;
-            } else {
-              music.volume = targetVolume;
-              clearInterval(fadeIn);
-            }
-          }, fadeInterval);
-        })
-        .catch(err => console.log("No se pudo reproducir el audio:", err));
-    }
+      const fadeIn = setInterval(() => {
+        if (volume < targetVolume) {
+          volume += fadeSpeed;
+          music.volume = Math.min(volume, targetVolume);
+        } else {
+          music.volume = targetVolume;
+          clearInterval(fadeIn);
+        }
+      }, fadeInterval);
+    }).catch(err => {
+      console.error("❌ Error:", err);
+      // Fallback: intentar sin fade
+      music.volume = 0.25;
+      music.play().catch(e => console.error("❌ Segundo intento falló:", e));
+    });
   }
 
   // 🌸 Animaciones
@@ -915,10 +921,8 @@ function startAudio(e) {
   }, TEXT_DELAY);
 }
 
-// Eventos - usar click para ambos dispositivos
+// IMPORTANTE: Solo usar click, que funciona en ambos
 startBtn.addEventListener("click", startAudio);
-// Para mejor compatibilidad en móviles, también escuchar touchstart
-startBtn.addEventListener("touchstart", startAudio);
 
 
 /* =========================
