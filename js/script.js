@@ -865,8 +865,10 @@ textBox.classList.remove("show");
 
 // 🎵 Música
 function startAudio(e) {
-  e.preventDefault(); 
-
+  e.preventDefault();
+  e.stopPropagation(); // Evita propagación del evento
+  
+  // Resto del código igual...
   overlay.classList.add("fade-out");
 
   if (music) {
@@ -877,7 +879,6 @@ function startAudio(e) {
     if (playPromise !== undefined) {
       playPromise
         .then(() => {
-
           let volume = 0.05;
           const targetVolume = 0.25;
           const fadeSpeed = 0.005;
@@ -910,8 +911,8 @@ function startAudio(e) {
   }, TEXT_DELAY);
 }
 
-startBtn.addEventListener("click", startAudio, { once: true });
-startBtn.addEventListener("touchstart", startAudio, { once: true });
+startBtn.addEventListener("click", handleStart);
+startBtn.addEventListener("touchend", handleStart);
 
 
 /* =========================
