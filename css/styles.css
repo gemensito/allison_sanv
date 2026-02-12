@@ -319,18 +319,26 @@ body {
   transition:
     transform 0.2s ease,
     filter 0.2s ease;
+  position: relative;
+  z-index: 10;
 }
 
 #start-btn img {
   width: clamp(100px, 30vw, 260px);
   height: auto;
   display: block;
-  pointer-events: none;
+  user-select: none; 
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
 }
 
 #start-btn:hover {
   transform: scale(1.12);
   filter: brightness(1.05);
+}
+
+#start-btn:active {
+  transform: scale(1.05);
 }
 
 /* =========================
