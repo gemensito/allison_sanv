@@ -863,43 +863,27 @@ const textBox = document.querySelector(".text-box");
 
 textBox.classList.remove("show");
 
-let hasStarted = false;
-
-// 🎵 Música
-function startAudio(e) {
-  if (hasStarted) return;
-  hasStarted = true;
-  
-  if (e) {
-    e.preventDefault();
-    e.stopPropagation();
-  }
-
+startBtn.addEventListener("click", () => {
   overlay.classList.add("fade-out");
 
+  // 🎵 Música — reproducir inmediato (mobile friendly)
   if (music) {
     music.volume = 0;
-    
-    music.play().then(() => {
-      let volume = 0.05;
-      const targetVolume = 0.25;
-      const fadeSpeed = 0.005;
-      const fadeInterval = 20;
+    music.play().catch(() => {});
 
-      const fadeIn = setInterval(() => {
-        if (volume < targetVolume) {
-          volume += fadeSpeed;
-          music.volume = Math.min(volume, targetVolume);
-        } else {
-          music.volume = targetVolume;
-          clearInterval(fadeIn);
-        }
-      }, fadeInterval);
-    }).catch(err => {
-      console.error("Error al reproducir audio:", err);
-      music.volume = 0.25;
-      music.play().catch(e => console.error("Segundo intento falló:", e));
-    });
+    let volume = 0.0;
+    const targetVolume = 0.3;
+    const fadeSpeed = 0.002;
+
+    const fadeIn = setInterval(() => {
+      if (volume < targetVolume) {
+        volume += fadeSpeed;
+        music.volume = volume;
+      } else {
+        music.volume = targetVolume;
+        clearInterval(fadeIn);
+      }
+    }, MUSIC_DELAY); // vuelve a usar la variable que tenías antes
   }
 
   // 🌸 Animación
@@ -909,14 +893,11 @@ function startAudio(e) {
     startFlowers();
   }, ANIM_DELAY);
 
-  // Texto
+  // 💬 Texto
   setTimeout(() => {
     textBox.classList.add("show");
   }, TEXT_DELAY);
-}
-
-startBtn.addEventListener("click", startAudio);
-startBtn.addEventListener("touchend", startAudio);
+});
 
 
 /* =========================
