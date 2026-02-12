@@ -870,26 +870,17 @@ function startAudio(e) {
   if (hasStarted) return;
   hasStarted = true;
   
-  // Mueve preventDefault DESPUÉS de verificar hasStarted
   if (e) {
     e.preventDefault();
     e.stopPropagation();
   }
 
-  alert("Ejecutando función"); // TEMPORAL - para confirmar que funciona
-
   overlay.classList.add("fade-out");
 
   if (music) {
-    // NO hagas pause/reset antes de play en móviles
     music.volume = 0;
     
-    // Reproducir inmediatamente (crítico para móviles)
     music.play().then(() => {
-      console.log("✅ Audio iniciado");
-      alert("Audio reproduciéndose"); // TEMPORAL
-      
-      // Fade in del volumen
       let volume = 0.05;
       const targetVolume = 0.25;
       const fadeSpeed = 0.005;
@@ -905,30 +896,25 @@ function startAudio(e) {
         }
       }, fadeInterval);
     }).catch(err => {
-      console.error("❌ Error:", err);
-      alert("ERROR: " + err.message); // TEMPORAL
-      // Fallback: intentar sin fade
+      console.error("Error al reproducir audio:", err);
       music.volume = 0.25;
-      music.play().catch(e => console.error("❌ Segundo intento falló:", e));
+      music.play().catch(e => console.error("Segundo intento falló:", e));
     });
-  } else {
-    alert("No se encontró el elemento music"); // TEMPORAL
   }
 
-  // 🌸 Animaciones
+  // 🌸 Animación
   setTimeout(() => {
     document.body.classList.remove("no-anim");
     document.body.classList.add("start-anim");
     startFlowers();
   }, ANIM_DELAY);
 
-  // 💬 Texto
+  // Texto
   setTimeout(() => {
     textBox.classList.add("show");
   }, TEXT_DELAY);
 }
 
-// Agregar AMBOS eventos
 startBtn.addEventListener("click", startAudio);
 startBtn.addEventListener("touchend", startAudio);
 
